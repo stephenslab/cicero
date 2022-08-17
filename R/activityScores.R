@@ -70,17 +70,9 @@ build_gene_activity_matrix <- function(input_cds,
         site_weights[names(site_weights)] <- 1
     }
 
-    gene_promoter_activity <-
-        build_composite_gene_activity_matrix(input_cds,
-                                             site_weights,
-                                             cicero_cons_info,
-                                             dist_thresh=dist_thresh,
-                                             coaccess_cutoff=coaccess_cutoff)
-
-
-    gene_activity_scores <- gene_promoter_activity
-
-    return(gene_activity_scores)
+    return(build_composite_gene_activity_matrix(input_cds,
+             site_weights,cicero_cons_info,dist_thresh=dist_thresh,
+             coaccess_cutoff=coaccess_cutoff))
 }
 
 build_composite_gene_activity_matrix <- function(input_cds,
@@ -190,7 +182,8 @@ build_composite_gene_activity_matrix <- function(input_cds,
     promoter_gene_mat <- promoter_gene_mat[,row.names(promoter_activity_scores)]
     gene_activity_scores <- promoter_gene_mat %*% promoter_activity_scores
 
-    return(gene_activity_scores)
+    return(list(gene_activity_scores = gene_activity_scores,
+                promoter_gene_mat = promoter_gene_mat))
 }
 
 #' Normalize gene activities
