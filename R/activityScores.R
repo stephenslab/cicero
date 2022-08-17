@@ -183,7 +183,8 @@ build_composite_gene_activity_matrix <- function(input_cds,
     gene_activity_scores <- promoter_gene_mat %*% promoter_activity_scores
 
     return(list(gene_activity_scores = gene_activity_scores,
-                promoter_gene_mat = promoter_gene_mat))
+                promoter_gene_mat = promoter_gene_mat,
+                promoter_activity_scores = promoter_activity_scores))
 }
 
 #' Normalize gene activities
